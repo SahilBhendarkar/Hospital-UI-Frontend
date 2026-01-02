@@ -1,0 +1,57 @@
+:root {
+    --bg-page: #f9fafb;
+    --bg-card: #ffffff;
+    --primary: #1f2937;
+    --secondary: #111827;
+    --border: #e5e7eb;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+input,
+select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+button {
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--primary);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--secondary);
+}

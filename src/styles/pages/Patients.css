@@ -1,0 +1,95 @@
+.patients-page {
+    padding: 10px;
+}
+
+.patients-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.patient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.patient-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn {
+    background-color: var(--warning);
+}
+
+.delete-btn {
+    background-color: var(--danger);
+}
+
+.modal-overlay,
+.alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 24, 39, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal,
+.alert-box {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    width: 100%;
+    max-width: 360px;
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.modal-actions,
+.alert-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cancel-btn {
+    background-color: #6b7280;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+}
