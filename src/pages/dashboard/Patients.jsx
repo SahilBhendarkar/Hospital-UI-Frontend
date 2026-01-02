@@ -1,8 +1,7 @@
 import { useState } from "react";
-import usePatients from "../../hooks/usePatients";
+import { usePatientsQuery } from "../../hooks/usePatientsQuery";
 import "../../styles/pages/Patients.css";
 import Loader from "../../components/common/Loader";
-
 
 const emptyPatient = {
     name: "",
@@ -13,9 +12,13 @@ const emptyPatient = {
 };
 
 const Patients = () => {
-    const { patients, loading, createPatient, updatePatient, removePatient } =
-        usePatients();
-
+    const {
+        patients,
+        loading,
+        addPatient,
+        updatePatient,
+        deletePatient,
+    } = usePatientsQuery();
 
     const [showForm, setShowForm] = useState(false);
     const [patientData, setPatientData] = useState(emptyPatient);
@@ -26,6 +29,7 @@ const Patients = () => {
         message: "",
         onConfirm: null,
     });
+
     const [toast, setToast] = useState({
         show: false,
         message: "",
@@ -33,24 +37,15 @@ const Patients = () => {
 
     const showToast = (message) => {
         setToast({ show: true, message });
-
         setTimeout(() => {
             setToast({ show: false, message: "" });
-        }, 3000);
+        }, 3500);
     };
 
-    const openAddForm = () => {
-        setEditId(null);
-        setPatientData(emptyPatient);
-        setShowForm(true);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPatientData((prev) => ({ ...prev, [name]: value }));
     };
-
-    const openEditForm = (patient) => {
-        setEditId(patient.id);
-        setPatientData(patient);
-        setShowForm(true);
-    };
-
 
     const openConfirm = (message, onConfirm) => {
         setConfirmBox({ open: true, message, onConfirm });
@@ -58,11 +53,6 @@ const Patients = () => {
 
     const closeConfirm = () => {
         setConfirmBox({ open: false, message: "", onConfirm: null });
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setPatientData((prev) => ({ ...prev, [name]: value }));
     };
 
     const submitForm = (e) => {
@@ -74,10 +64,10 @@ const Patients = () => {
                 : "Are you sure you want to add this patient?",
             () => {
                 if (editId) {
-                    updatePatient(editId, patientData);
+                    updatePatient({ id: editId, data: { ...patientData } });
                     showToast("Patient updated successfully");
                 } else {
-                    createPatient(patientData);
+                    addPatient({ ...patientData });
                     showToast("Patient added successfully");
                 }
 
@@ -89,11 +79,23 @@ const Patients = () => {
         );
     };
 
+    const openEdit = (patient) => {
+        setEditId(patient.id);
+        setPatientData({ ...patient });
+        setShowForm(true);
+    };
+
+    const openAdd = () => {
+        setEditId(null);
+        setPatientData(emptyPatient);
+        setShowForm(true);
+    };
+
     const confirmDelete = (patient) => {
         openConfirm(
             `Are you sure you want to delete ${patient.name}?`,
             () => {
-                removePatient(patient.id);
+                deletePatient(patient.id);
                 showToast("Patient deleted successfully");
                 closeConfirm();
             }
@@ -104,30 +106,31 @@ const Patients = () => {
         <div className="patients-page">
             <div className="patients-header">
                 <h2>Patients</h2>
-                <button onClick={openAddForm}>Add Patient</button>
+                <button onClick={openAdd}>Add Patient</button>
             </div>
 
             {loading ? (
                 <Loader />
             ) : (
                 <div className="patient-list">
-                    {patients.map((patient) => (
-                        <div className="patient-card" key={patient.id}>
+                    {patients.map((p) => (
+                        <div className="patient-card" key={p.id}>
                             <div>
-                                <strong>{patient.name}</strong>
-                                <div className="sub-text">{patient.email}</div>
-                                <div className="sub-text">{patient.phone}</div>
+                                <strong>{p.name}</strong>
+                                <div className="sub-text">{p.email}</div>
+                                <div className="sub-text">{p.phone}</div>
                             </div>
+
                             <div className="actions">
                                 <button
                                     className="edit-btn"
-                                    onClick={() => openEditForm(patient)}
+                                    onClick={() => openEdit(p)}
                                 >
                                     Edit
                                 </button>
                                 <button
                                     className="delete-btn"
-                                    onClick={() => confirmDelete(patient)}
+                                    onClick={() => confirmDelete(p)}
                                 >
                                     Delete
                                 </button>
@@ -137,46 +140,32 @@ const Patients = () => {
                 </div>
             )}
 
-
             {showForm && (
                 <div className="modal-overlay">
                     <div className="modal">
                         <h3>{editId ? "Edit Patient" : "Add Patient"}</h3>
+
                         <form onSubmit={submitForm}>
                             <input
                                 name="name"
-                                placeholder="Name"
                                 value={patientData.name}
                                 onChange={handleChange}
+                                placeholder="Name"
                                 required
                             />
                             <input
                                 name="email"
-                                placeholder="Email"
                                 value={patientData.email}
                                 onChange={handleChange}
+                                placeholder="Email"
                                 required
                             />
                             <input
                                 name="phone"
-                                placeholder="Phone"
                                 value={patientData.phone}
                                 onChange={handleChange}
+                                placeholder="Phone"
                                 required
-                            />
-                            <select
-                                name="gender"
-                                value={patientData.gender}
-                                onChange={handleChange}
-                            >
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                            <input
-                                name="role"
-                                value={patientData.role}
-                                disabled
                             />
 
                             <div className="modal-actions">
@@ -202,22 +191,15 @@ const Patients = () => {
                         <p>{confirmBox.message}</p>
                         <div className="alert-actions">
                             <button onClick={confirmBox.onConfirm}>Yes</button>
-                            <button
-                                className="cancel-btn"
-                                onClick={closeConfirm}
-                            >
+                            <button className="cancel-btn" onClick={closeConfirm}>
                                 No
                             </button>
                         </div>
                     </div>
                 </div>
             )}
-            {toast.show && (
-                <div className="toast">
-                    {toast.message}
-                </div>
-            )}
 
+            {toast.show && <div className="toast">{toast.message}</div>}
         </div>
     );
 };
