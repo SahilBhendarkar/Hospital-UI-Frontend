@@ -1,5 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import logo from "../../assets/logo.jpg";
 import "../../styles/layout/Layout.css";
 
 function PageLayout() {
@@ -8,13 +9,21 @@ function PageLayout() {
     return (
         <div className="layout">
             <aside className="sidebar">
-                <img src="Day-20\src\assets\v987-18a.jpg" className="logo"></img>
-                <h3>Hospital UI</h3>
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/patients">Patients</Link>
-                <Link to="/doctors">Doctors</Link>
-                <Link to="/about">About Us</Link>
-                <button onClick={logout}>Logout</button>
+                <div className="sidebar-brand">
+                    <img src={logo} alt="Hospital Logo" className="logo" />
+                    <h3>Hospital UI</h3>
+                </div>
+
+                <nav className="sidebar-nav">
+                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/patients">Patients</Link>
+                    <Link to="/doctors">Doctors</Link>
+                    <Link to="/about">About Us</Link>
+                </nav>
+
+                <button className="logout-btn" onClick={logout}>
+                    Logout
+                </button>
             </aside>
 
             <main className="content">
