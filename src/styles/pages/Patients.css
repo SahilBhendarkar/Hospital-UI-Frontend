@@ -3,10 +3,26 @@
 }
 
 .patients-header {
+    height: 80px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    justify-content: space-between;
+    padding: 0 2rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    box-shadow: var(--shadow);
+}
+
+.title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    background: var(--accent-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .patient-list {

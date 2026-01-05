@@ -10,6 +10,12 @@ const Sidebar = () => {
                 <li>
                     <Link to="/dashboard/patients">Patients</Link>
                 </li>
+                <li>
+                    <Link to="/dashboard/doctors">Doctors</Link>
+                </li>
+                <li>
+                    <Link to="/dashboard/about">About Us</Link>
+                </li>
             </ul>
         </aside>
     );

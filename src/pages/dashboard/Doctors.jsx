@@ -1,27 +1,28 @@
 import { useState } from "react";
-import { usePatientsQuery } from "../../hooks/usePatientsQuery";
-import "../../styles/pages/Patients.css";
+import { useDoctorsQuery } from "../../hooks/useDoctorsQuery"; 
+import "../../styles/pages/Patients.css"; 
 import Loader from "../../components/common/Loader";
 
-const emptyPatient = {
+const emptyDoctor = {
     name: "",
     email: "",
     phone: "",
-    gender: "",
-    role: "PATIENT",
+    specialty: "",
+    license: "",
+    role: "DOCTOR",
 };
 
-const Patients = () => {
+const Doctors = () => {
     const {
-        patients,
+        doctors, 
         loading,
-        addPatient,
-        updatePatient,
-        deletePatient,
-    } = usePatientsQuery();
+        addDoctor, 
+        updateDoctor,
+        deleteDoctor,
+    } = useDoctorsQuery();
 
     const [showForm, setShowForm] = useState(false);
-    const [patientData, setPatientData] = useState(emptyPatient);
+    const [doctorData, setDoctorData] = useState(emptyDoctor);
     const [editId, setEditId] = useState(null);
 
     const [confirmBox, setConfirmBox] = useState({
@@ -44,7 +45,7 @@ const Patients = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setPatientData((prev) => ({ ...prev, [name]: value }));
+        setDoctorData((prev) => ({ ...prev, [name]: value }));
     };
 
     const openConfirm = (message, onConfirm) => {
@@ -60,43 +61,43 @@ const Patients = () => {
 
         openConfirm(
             editId
-                ? "Are you sure you want to update this patient?"
-                : "Are you sure you want to add this patient?",
+                ? "Are you sure you want to update this doctor?"
+                : "Are you sure you want to add this doctor?",
             () => {
                 if (editId) {
-                    updatePatient({ id: editId, data: { ...patientData } });
-                    showToast("Patient updated successfully");
+                    updateDoctor({ id: editId, data: { ...doctorData } });
+                    showToast("Doctor updated successfully");
                 } else {
-                    addPatient({ ...patientData });
-                    showToast("Patient added successfully");
+                    addDoctor({ ...doctorData });
+                    showToast("Doctor added successfully");
                 }
 
                 setShowForm(false);
                 setEditId(null);
-                setPatientData(emptyPatient);
+                setDoctorData(emptyDoctor);
                 closeConfirm();
             }
         );
     };
 
-    const openEdit = (patient) => {
-        setEditId(patient.id);
-        setPatientData({ ...patient });
+    const openEdit = (doctor) => {
+        setEditId(doctor.id);
+        setDoctorData({ ...doctor });
         setShowForm(true);
     };
 
     const openAdd = () => {
         setEditId(null);
-        setPatientData(emptyPatient);
+        setDoctorData(emptyDoctor);
         setShowForm(true);
     };
 
-    const confirmDelete = (patient) => {
+    const confirmDelete = (doctor) => {
         openConfirm(
-            `Are you sure you want to delete ${patient.name}?`,
+            `Are you sure you want to delete ${doctor.name}?`,
             () => {
-                deletePatient(patient.id);
-                showToast("Patient deleted successfully");
+                deleteDoctor(doctor.id);
+                showToast("Doctor deleted successfully");
                 closeConfirm();
             }
         );
@@ -105,32 +106,34 @@ const Patients = () => {
     return (
         <div className="patients-page">
             <div className="patients-header">
-                <h2 className="title">Patients</h2>
-                <button onClick={openAdd}>Add Patient</button>
+                <h2 className="title">Doctors</h2>
+                <button onClick={openAdd}>Add Doctor</button>
             </div>
 <br></br>
             {loading ? (
                 <Loader />
             ) : (
                 <div className="patient-list">
-                    {patients.map((p) => (
-                        <div className="patient-card" key={p.id}>
+                    {doctors.map((d) => (
+                        <div className="patient-card" key={d.id}>
                             <div>
-                                <strong>{p.name}</strong>
-                                <div className="sub-text">{p.email}</div>
-                                <div className="sub-text">{p.phone}</div>
+                                <strong>{d.name}</strong>
+                                <div className="sub-text">{d.specialty}</div>
+                                <div className="sub-text">{d.email}</div>
+                                <div className="sub-text">{d.phone}</div>
+                                <div className="sub-text">{d.license}</div>
                             </div>
 
                             <div className="actions">
                                 <button
                                     className="edit-btn"
-                                    onClick={() => openEdit(p)}
+                                    onClick={() => openEdit(d)}
                                 >
                                     Edit
                                 </button>
                                 <button
                                     className="delete-btn"
-                                    onClick={() => confirmDelete(p)}
+                                    onClick={() => confirmDelete(d)}
                                 >
                                     Delete
                                 </button>
@@ -143,28 +146,42 @@ const Patients = () => {
             {showForm && (
                 <div className="modal-overlay">
                     <div className="modal">
-                        <h3>{editId ? "Edit Patient" : "Add Patient"}</h3>
+                        <h3>{editId ? "Edit Doctor" : "Add Doctor"}</h3>
 
                         <form onSubmit={submitForm}>
                             <input
                                 name="name"
-                                value={patientData.name}
+                                value={doctorData.name}
                                 onChange={handleChange}
-                                placeholder="Name"
+                                placeholder="Full Name"
                                 required
                             />
                             <input
                                 name="email"
-                                value={patientData.email}
+                                value={doctorData.email}
                                 onChange={handleChange}
                                 placeholder="Email"
                                 required
                             />
                             <input
                                 name="phone"
-                                value={patientData.phone}
+                                value={doctorData.phone}
                                 onChange={handleChange}
                                 placeholder="Phone"
+                                required
+                            />
+                            <input
+                                name="specialty"
+                                value={doctorData.specialty}
+                                onChange={handleChange}
+                                placeholder="Specialty (e.g., Cardiology)"
+                                required
+                            />
+                            <input
+                                name="license"
+                                value={doctorData.license}
+                                onChange={handleChange}
+                                placeholder="License Number"
                                 required
                             />
 
@@ -204,4 +221,4 @@ const Patients = () => {
     );
 };
 
-export default Patients;
+export default Doctors;

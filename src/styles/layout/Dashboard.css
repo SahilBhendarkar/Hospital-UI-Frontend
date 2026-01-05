@@ -12,8 +12,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 16px 24px;
 }
+
 
 .header h2 {
     font-size: 18px;
@@ -44,6 +45,9 @@
     background-color: #353333;
     color: #ffffff;
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .sidebar ul {
@@ -69,4 +73,8 @@
     flex: 1;
     padding: 20px;
     background-color: #ffffff;
+}
+
+.sidebar-footer {
+    margin-top: auto;
 }
