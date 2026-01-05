@@ -4,7 +4,7 @@ import { getPatients } from "../services/patientService";
 export const usePatientsQuery = () => {
     const queryClient = useQueryClient();
 
-    // Initial fetch (READ only once)
+    // Initial fetch 
     const { data: patients = [], isLoading } = useQuery({
         queryKey: ["patients"],
         queryFn: async () => {
@@ -13,7 +13,7 @@ export const usePatientsQuery = () => {
         },
     });
 
-    // ADD (local state update)
+    // ADD 
     const addPatient = (patient) => {
         queryClient.setQueryData(["patients"], (old = []) => [
             ...old,
@@ -21,14 +21,14 @@ export const usePatientsQuery = () => {
         ]);
     };
 
-    // UPDATE (local state update)
+    // UPDATE 
     const updatePatient = ({ id, data }) => {
         queryClient.setQueryData(["patients"], (old = []) =>
             old.map((p) => (p.id === id ? { ...p, ...data } : p))
         );
     };
 
-    // DELETE (local state update)
+    // DELETE 
     const deletePatient = (id) => {
         queryClient.setQueryData(["patients"], (old = []) =>
             old.filter((p) => p.id !== id)
