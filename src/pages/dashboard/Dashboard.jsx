@@ -6,17 +6,24 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+    }, []);
+
+    useEffect(() => {
+        document.body.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+    }, [theme]);
+
+    useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
         }, 2000);
 
         return () => clearTimeout(timer);
     }, []);
-
-    useEffect(() => {
-        document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme);
-    }, [theme]);
 
     const toggleTheme = () => {
         setTheme((prev) => (prev === "light" ? "dark" : "light"));
@@ -31,8 +38,14 @@ const Dashboard = () => {
                     <>
                         <h2 className="dashboard-title">Dashboard</h2>
                         <button className="theme-toggle" onClick={toggleTheme}>
-                            {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+                            <span className="icon">
+                                {theme === "light" ? "🌙" : "☀️"}
+                            </span>
+                            <span className="label">
+                                {theme === "light" ? "Dark Mode" : "Light Mode"}
+                            </span>
                         </button>
+
                     </>
                 )}
             </header>
@@ -55,14 +68,13 @@ const Dashboard = () => {
                         </div>
 
                         <div className="dashboard-section skeleton-chart"></div>
-
                         <div className="dashboard-section skeleton-actions"></div>
                     </>
                 ) : (
                     <>
                         <div className="overview-sticky-wrapper">
                             <div className="dashboard-section overview">
-                                <h3>Overview</h3>
+                                <h2>Overview</h2>
                                 <p>Welcome to the Hospital Management System.</p>
                             </div>
 
@@ -87,7 +99,7 @@ const Dashboard = () => {
                         </div>
 
                         <div className="dashboard-section">
-                            <h3>Hospital Services</h3>
+                            <h2>Hospital Services</h2>
 
                             <div className="image-card-grid">
                                 <div className="image-card">
@@ -126,16 +138,16 @@ const Dashboard = () => {
                         </div>
 
                         <div className="dashboard-section">
-                            <h3>Appointments This Week</h3>
+                            <h2>Appointments This Week</h2>
                             <div className="chart">
                                 <div className="chart-bars">
-                                    <div className="bar primary" style={{ height: "60%" }}><span>Monday</span></div>
-                                    <div className="bar secondary" style={{ height: "80%" }}><span>Tuesday</span></div>
-                                    <div className="bar primary" style={{ height: "45%" }}><span>Wednesday</span></div>
-                                    <div className="bar secondary" style={{ height: "90%" }}><span>Thursday</span></div>
-                                    <div className="bar primary" style={{ height: "70%" }}><span>Friday</span></div>
-                                    <div className="bar secondary" style={{ height: "55%" }}><span>Saturday</span></div>
-                                    <div className="bar primary" style={{ height: "85%" }}><span>Sunday</span></div>
+                                    <div className="bar primary" style={{ height: "60%" }}><span>Mon</span></div>
+                                    <div className="bar secondary" style={{ height: "80%" }}><span>Tue</span></div>
+                                    <div className="bar primary" style={{ height: "45%" }}><span>Wed</span></div>
+                                    <div className="bar secondary" style={{ height: "90%" }}><span>Thu</span></div>
+                                    <div className="bar primary" style={{ height: "70%" }}><span>Fri</span></div>
+                                    <div className="bar secondary" style={{ height: "55%" }}><span>Sat</span></div>
+                                    <div className="bar primary" style={{ height: "85%" }}><span>Sun</span></div>
                                 </div>
                             </div>
                         </div>
@@ -143,9 +155,9 @@ const Dashboard = () => {
                         <div className="dashboard-section">
                             <h3>Quick Actions</h3>
                             <div className="quick-actions">
-                                <button className="action-btn">+ Add Patient</button>
-                                <button className="action-btn">📅 Book Appointment</button>
-                                <button className="action-btn">📋 View Reports</button>
+                                <button className="action-btn">Add Patient</button>
+                                <button className="action-btn">Book Appointment</button>
+                                <button className="action-btn">View Reports</button>
                             </div>
                         </div>
                     </>

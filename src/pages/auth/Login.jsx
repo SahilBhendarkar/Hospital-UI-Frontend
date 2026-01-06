@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { Eye, EyeOff } from "lucide-react";
 import "../../styles/pages/Login.css";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false); 
     const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -15,6 +17,7 @@ const Login = () => {
         const userData = {
             email,
             role: "admin",
+            password: "123"
         };
 
         login(userData);
@@ -39,15 +42,23 @@ const Login = () => {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group relative"> {/* ✅ relative */}
                         <label>Password</label>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}  // ✅ Toggle
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+                        <button
+                            type="button"
+                            className="eye-btn"
+                            onClick={() => setShowPassword(!showPassword)}  // ✅ Fix handler
+                            tabIndex={-1}
+                        >
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </button>
                     </div>
 
                     <button type="submit">Login</button>

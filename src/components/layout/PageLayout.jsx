@@ -13,14 +13,12 @@ function PageLayout() {
                     <img src={logo} alt="Hospital Logo" className="logo" />
                     <h3>Hospital UI</h3>
                 </div>
-
                 <nav className="sidebar-nav">
                     <Link to="/dashboard">Dashboard</Link>
                     <Link to="/patients">Patients</Link>
                     <Link to="/doctors">Doctors</Link>
                     <Link to="/about">About Us</Link>
                 </nav>
-
                 <button className="logout-btn" onClick={logout}>
                     Logout
                 </button>
