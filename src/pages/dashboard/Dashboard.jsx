@@ -6,7 +6,7 @@ const themes = {
     light: {
         bgMain: "#f8fafc",
         bgCard: "#ffffff",
-        primary: "#667eea",
+        primary: "#ffffffff",
         border: "#e2e8f0",
         shadow: "rgba(0,0,0,0.08)",
         radius: "20px"
@@ -44,7 +44,7 @@ const StatCard = styled.div`
     p {
         font-size: 3rem;
         font-weight: 800;
-        background: ${({ theme }) => theme.primary};
+        background: #8b5cf6;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
