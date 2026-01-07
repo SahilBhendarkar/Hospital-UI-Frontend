@@ -12,6 +12,7 @@
     --radius: 20px;
 }
 
+
 [data-theme="dark"] {
     --bg-main: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
     --bg-card: rgba(31, 41, 55, 0.95);
@@ -22,9 +23,11 @@
     --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
+
 * {
     box-sizing: border-box;
 }
+
 
 body {
     margin: 0;
@@ -35,11 +38,13 @@ body {
     transition: background 0.4s ease, color 0.4s ease;
 }
 
+
 .dashboard {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
+
 
 .dashboard-header {
     height: 80px;
@@ -56,6 +61,7 @@ body {
     box-shadow: var(--shadow);
 }
 
+
 .dashboard-title {
     font-size: 2.25rem;
     font-weight: 800;
@@ -63,6 +69,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 
 .dashboard-content {
     flex: 1;
@@ -73,8 +80,9 @@ body {
     width: 100%;
 }
 
+
 .dashboard-section {
-    background: var(--bg-card);
+    
     backdrop-filter: blur(10px);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -84,14 +92,17 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .dashboard-section:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-hover);
 }
 
+
 .overview-sticky-wrapper {
     position: relative;
 }
+
 
 .overview {
     position: sticky;
@@ -99,12 +110,14 @@ body {
     z-index: 5;
 }
 
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
 }
+
 
 .stat-card {
     background: var(--bg-card);
@@ -116,10 +129,12 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .stat-card:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
 }
+
 
 .stat-card h3 {
     font-size: 0.85rem;
@@ -129,6 +144,7 @@ body {
     margin-bottom: 1rem;
 }
 
+
 .stat-card p {
     font-size: 3rem;
     font-weight: 800;
@@ -137,11 +153,13 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+
 .image-card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
+
 
 .image-card {
     background: var(--bg-glass);
@@ -152,10 +170,12 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .image-card:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
 }
+
 
 .image-card img {
     width: 100%;
@@ -163,18 +183,22 @@ body {
     object-fit: cover;
 }
 
+
 .image-card-content {
     padding: 2rem;
 }
+
 
 .image-card-content h4 {
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
 }
 
+
 .image-card-content p {
     color: var(--text-secondary);
 }
+
 
 .chart {
     width: 100%;
@@ -185,6 +209,7 @@ body {
     border: 1px solid var(--border);
 }
 
+
 .chart-bars {
     display: flex;
     align-items: flex-end;
@@ -193,6 +218,7 @@ body {
     height: 100%;
     gap: 1.5rem;
 }
+
 
 .bar {
     flex: 1;
@@ -211,6 +237,7 @@ body {
     text-align: center;
 }
 
+
 .bar span {
     writing-mode: horizontal-tb;
     text-orientation: mixed;
@@ -218,23 +245,28 @@ body {
     user-select: none;
 }
 
+
 .bar.primary {
     background: var(--accent-primary);
 }
+
 
 .bar.secondary {
     background: var(--accent-success);
 }
 
+
 .bar:hover {
     filter: brightness(1.15);
 }
+
 
 .quick-actions {
     display: flex;
     gap: 1.25rem;
     flex-wrap: wrap;
 }
+
 
 .action-btn {
     padding: 1rem 2rem;
@@ -248,10 +280,12 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .action-btn:hover {
     transform: translateY(-4px) scale(1.05);
     box-shadow: var(--shadow-hover);
 }
+
 
 .skeleton-header,
 .skeleton-section,
@@ -269,32 +303,39 @@ body {
     pointer-events: none;
 }
 
+
 .skeleton-header {
     width: 220px;
     height: 32px;
 }
+
 
 .skeleton-section {
     height: 120px;
     margin-bottom: 2.5rem;
 }
 
+
 .skeleton-card {
     height: 150px;
 }
 
+
 .skeleton-image-card {
     height: 260px;
 }
+
 
 .skeleton-chart {
     height: 220px;
     margin-bottom: 2.5rem;
 }
 
+
 .skeleton-actions {
     height: 80px;
 }
+
 
 @keyframes growBar {
     from {
@@ -302,21 +343,25 @@ body {
         opacity: 0;
     }
 
+
     to {
         transform: scaleY(1);
         opacity: 1;
     }
 }
 
+
 @keyframes skeleton-loading {
     0% {
         background-position: 100% 0;
     }
 
+
     100% {
         background-position: -100% 0;
     }
 }
+
 
 @media (max-width: 768px) {
     .dashboard-header {
@@ -324,43 +369,52 @@ body {
         padding: 0 1.5rem;
     }
 
+
     .dashboard-title {
         font-size: 1.75rem;
     }
 
+
     .dashboard-content {
         padding: 2rem 1rem;
     }
+
 
     .stats-grid,
     .image-card-grid {
         grid-template-columns: 1fr;
     }
 
+
     .chart {
         height: 220px;
         padding: 1.25rem;
     }
 
+
     .bar {
         max-width: 40px;
     }
+
 
     .bar span {
         writing-mode: horizontal-tb;
         font-size: 0.7rem;
     }
 
+
     .quick-actions {
         flex-direction: column;
         align-items: center;
     }
+
 
     .action-btn {
         width: 100%;
         max-width: 320px;
     }
 }
+
 
 .theme-toggle {
     position: relative;
@@ -383,6 +437,7 @@ body {
     color: var(--text-primary);
 }
 
+
 .theme-toggle:hover {
     transform: scale(1.1) rotate(5deg);
     box-shadow:
@@ -391,10 +446,12 @@ body {
     background: rgba(255, 255, 255, 0.25);
 }
 
+
 .theme-toggle:active {
     transform: scale(0.95) rotate(180deg);
     animation: burst 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
+
 
 .icon {
     position: relative;
@@ -402,10 +459,12 @@ body {
     transition: transform 0.4s ease;
 }
 
+
 .theme-toggle[data-theme="dark"] .icon {
     transform: rotate(360deg);
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
 }
+
 
 .label {
     position: absolute;
@@ -424,24 +483,29 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+
 .theme-toggle:hover .label {
     opacity: 1;
     transform: translateX(0);
 }
+
 
 @keyframes burst {
     0% {
         box-shadow: 0 0 0 rgba(102, 126, 234, 0);
     }
 
+
     50% {
         box-shadow: 0 0 40px rgba(102, 126, 234, 0.8), 0 0 80px rgba(118, 75, 162, 0.6);
     }
+
 
     100% {
         box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
     }
 }
+
 
 [data-theme="dark"] .theme-toggle {
     background: rgba(30, 41, 59, 0.4);
@@ -449,6 +513,7 @@ body {
         0 8px 32px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
+
 
 [data-theme="dark"] .theme-toggle:hover {
     background: rgba(15, 23, 42, 0.6);
