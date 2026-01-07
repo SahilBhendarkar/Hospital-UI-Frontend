@@ -4,30 +4,15 @@ import App from "./App";
 import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "./theme/theme";
 
 const queryClient = new QueryClient();
 
 const Root = () => {
-    const [theme, setTheme] = useState(
-        localStorage.getItem("theme") || "light"
-    );
-
-    const toggleTheme = () => {
-        setTheme((prev) => {
-            const next = prev === "light" ? "dark" : "light";
-            localStorage.setItem("theme", next);
-            return next;
-        });
-    };
 
     return (
         <QueryClientProvider client={queryClient}>
             <AuthProvider>
-                <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-                    <App toggleTheme={toggleTheme} />
-                </ThemeProvider>
+                    <App />
             </AuthProvider>
         </QueryClientProvider>
     );
